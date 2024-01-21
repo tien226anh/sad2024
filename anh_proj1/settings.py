@@ -80,11 +80,11 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         "ENGINE": "django.db.backends.mysql",
-        "NAME": config("DB_NAME"),
-        "USER": config("DB_USER"),
-        "PASSWORD": config("DB_PASSWORD"),
-        "HOST": config("DB_HOST"),
-        "PORT": config("DB_PORT", cast=int),
+        "NAME": config("DB_NAME") or "ecomstore",
+        "USER": config("DB_USER") or "username",
+        "PASSWORD": config("DB_PASSWORD") or "password",
+        "HOST": config("DB_HOST") or "localhost",
+        "PORT": config("DB_PORT", cast=int) or 3306,
     }
 }
 
