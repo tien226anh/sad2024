@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "catalog",
-    "cart",
     "preview",
     "utils",
 ]
@@ -97,23 +96,25 @@ DATABASES = {
         "HOST": config("DB_HOST") or "localhost",
         "PORT": config("DB_PORT", cast=int) or 3306,
     },
-    "mongodb": {
-        "ENGINE": "djongo",
-        "NAME": config("MONGODB_NAME") or "ecomstore",
-        "CLIENT": {
-            "host": config("MONGODB_HOST") or "localhost",
-            "port": config("MONGODB_PORT", cast=int) or 27017,
-            "username": config("MONGODB_USER") or "username",
-            "password": config("MONGODB_PASSWORD") or "password",
-            # "authSource": config("MONGODB_AUTH_SOURCE") or "admin",
-            # "authMechanism": config("MONGODB_AUTH_MECHANISM") or "SCRAM-SHA-1",
-        },
-    },
+    # TODO: not work with django 5.0.1
+    # "cart": {
+    #     "ENGINE": "djongo",
+    #     "NAME": "ecomstore",
+    #     "ENFORCE_SCHEMA": False,
+    #     "CLIENT": {
+    #         "host": config("DB_HOST") or "localhost",
+    #         "port": config("MONGODB_PORT", cast=int) or 27017,
+    #         "username": config("MONGODB_USER") or "username",
+    #         "password": config("MONGODB_PASSWORD") or "password",
+    #         "authSource": "admin",
+    #         "authMechanism": "SCRAM-SHA-1",
+    #     },
+    # },
 }
 
-DATABASE_ROUTERS = ["routers.MongoRouter"]
+# DATABASE_ROUTERS = ["utils.routers.MongoRouter"]
 
-MONGO_DATABASES = {"default": "mongodb"}
+# MONGO_DATABASES = {"default": "mongodb"}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
