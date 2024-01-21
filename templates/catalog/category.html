@@ -4,7 +4,7 @@
 <h1>{{ c.name }}</h1>
 {{ c.description }}
 <br /><br />
-{% for p in products %}
+<!-- {% for p in products %} -->
 <div class="product_thumbnail">
   <a href="{{ p.get_absolute_url }}">
     <img src="/static/images/products/thumbnails/{{ p.image }}" alt="{{ p.name }}" class="bn" />
@@ -12,5 +12,5 @@
     {{ p.name }}
   </a>
 </div>
-{% endfor %}
+<!-- {% endfor %} -->
 {% endblock %}
