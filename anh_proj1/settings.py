@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "catalog",
+    "cart",
     "preview",
     "utils",
 ]
@@ -95,9 +96,24 @@ DATABASES = {
         "PASSWORD": config("DB_PASSWORD") or "password",
         "HOST": config("DB_HOST") or "localhost",
         "PORT": config("DB_PORT", cast=int) or 3306,
-    }
+    },
+    "mongodb": {
+        "ENGINE": "djongo",
+        "NAME": config("MONGODB_NAME") or "ecomstore",
+        "CLIENT": {
+            "host": config("MONGODB_HOST") or "localhost",
+            "port": config("MONGODB_PORT", cast=int) or 27017,
+            "username": config("MONGODB_USER") or "username",
+            "password": config("MONGODB_PASSWORD") or "password",
+            # "authSource": config("MONGODB_AUTH_SOURCE") or "admin",
+            # "authMechanism": config("MONGODB_AUTH_MECHANISM") or "SCRAM-SHA-1",
+        },
+    },
 }
 
+DATABASE_ROUTERS = ["routers.MongoRouter"]
+
+MONGO_DATABASES = {"default": "mongodb"}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
