@@ -21,4 +21,9 @@ from . import views
 
 urlpatterns = [
     path("", views.catalog, name="catalog"),
+    path("index/", views.index, name="catalog_home"),
+    path(
+        "category/<slug:category_slug>/", views.show_category, name="catalog_category"
+    ),
+    path("product/<slug:product_slug>/", views.show_product, name="catalog_product"),
 ]

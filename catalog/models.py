@@ -98,7 +98,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(
         auto_now=True,
     )
-    categories = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category, related_name="products")
 
     class Meta:
         db_table = "products"

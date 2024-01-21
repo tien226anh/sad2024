@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "catalog",
     "preview",
+    "utils",
 ]
 
 MIDDLEWARE = [
@@ -68,6 +69,11 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "utils.context_processors.ecomstore",
+                "django.template.context_processors.csrf",
+                "django.template.context_processors.debug",
+                "django.template.context_processors.i18n",
+                "django.template.context_processors.static",
             ],
         },
     },
@@ -128,7 +134,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = "/var/www/example.com/static/"
+STATIC_ROOT = BASE_DIR / "var/www/example.com/static/"
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -138,3 +144,7 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+SITE_NAME = "Modern Musician"
+META_KEYWORDS = "Music, instruments, music accessories, musician supplies"
+META_DESCRIPTION = "Modern Musician is an online supplier of instruments, sheet music, and other accessories for musicians"
