@@ -2,6 +2,7 @@ asgiref==3.7.2
 Django==5.0.1
 django-livereload-server==0.5.1
 mysqlclient==2.2.1
+python-decouple==3.8
 setuptools==68.2.2
 sqlparse==0.4.4
 tornado==6.4
