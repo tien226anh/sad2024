@@ -3,7 +3,6 @@
 {% block content %}
 <div class="product_image">
   <img src="/static/images/products/main/{{ p.image }}" alt="{{ p.name }}" />
-  <!-- <img src="{{ MEDIA_URL }}images/products/main/{{ p.image }}" alt="{{ p.name }}" /> -->
 </div>
 <h1>{{ p.name }}</h1>
 Brand: <em>{{ p.brand }}</em>
@@ -24,7 +23,13 @@ Now: $ {{ p.price }}
 Price: $ {{ p.price }}
 {% endif %}
 <br /><br />
-[add to cart button]
+<form action="." method="post" class="cart">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <br />
+  <input type="submit" value="Add to cart" alt="Add to cart" name="submit" />
+</form>
+<div class="cb"></div>
 <br /><br />
 <div class="cb"><br /><br /></div>
 <h3>Product Description</h3>

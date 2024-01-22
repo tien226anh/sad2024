@@ -14,16 +14,25 @@ class ProductAdminForm(forms.ModelForm):
             raise forms.ValidationError("Price must be greater than 0")
         return price
 
-    # def clean_quantity(self):
-    #     quantity = self.cleaned_data.get("quantity")
-    #     if quantity <= 0:
-    #         raise forms.ValidationError("Quantity must be greater than 0")
-    #     return quantity
 
-    # def clean(self):
-    #     cleaned_data = super().clean()
-    #     price = cleaned_data.get("price")
-    #     quantity = cleaned_data.get("quantity")
-    #     if price and quantity:
-    #         cleaned_data["total"] = price * quantity
-    #     return cleaned_data
+class ProductAddToCartForm(forms.Form):
+    quantity = forms.IntegerField(
+        widget=forms.TextInput(
+            attrs={"size": "2", "value": "1", "class": "quantity", "maxlength": "5"}
+        ),
+        error_messages={
+            "invalid": "Please enter a valid quantity.",
+        },
+        min_value=1,
+    )
+    product_slug = forms.CharField(widget=forms.HiddenInput())
+
+    def __init__(self, request=None, *args, **kwargs):
+        self.request = request
+        super(ProductAddToCartForm, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        if self.request:
+            if not self.request.session.test_cookie_worked():
+                raise forms.ValidationError("Cookies must be enabled")
+        return self.cleaned_data

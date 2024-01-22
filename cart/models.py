@@ -1,12 +1,19 @@
 # /cart/models.py
-from djongo import models
 from catalog.models import Product
+from django.db import models
+from django.conf import settings
+from pymongo import MongoClient
+from decouple import config, Csv
+
+client = MongoClient(config("MONGODB_CONNECTION_STRING"))
+db = client[config("MONGODB_NAME")]
+cart_collection = db["cart_items"]
 
 
 class CartItem(models.Model):
     cart_id = models.CharField(max_length=50)
     date_added = models.DateTimeField(auto_now_add=True)
-    quantity = models.IntegerField(default=1)
+    quantity = models.PositiveIntegerField(default=1)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
     class Meta:
@@ -28,3 +35,25 @@ class CartItem(models.Model):
     def augment_quantity(self, quantity):
         self.quantity = self.quantity + int(quantity)
         self.save()
+
+    # def save(self, *args, **kwargs):
+    #     super().save(*args, **kwargs)
+
+    #     cart_collection.insert_one(
+    #         {
+    #             "cart_id": self.cart_id,
+    #             "date_added": self.date_added,
+    #             "quantity": self.quantity,
+    #             "product_id": self.product.id,
+    #         }
+    #     )
+
+    # def delete(self, *args, **kwargs):
+    #     cart_collection.delete_one(
+    #         {
+    #             "product_id": self.product.id,
+    #             "quantity": self.quantity,
+    #         }
+    #     )
+
+    #     super().delete(*args, **kwargs)

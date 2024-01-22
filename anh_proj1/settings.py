@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "catalog",
     "preview",
     "utils",
+    "cart",
 ]
 
 MIDDLEWARE = [
@@ -96,7 +97,7 @@ DATABASES = {
         "HOST": config("DB_HOST") or "localhost",
         "PORT": config("DB_PORT", cast=int) or 3306,
     },
-    # TODO: not work with django 5.0.1
+    # TODO: not work with django 4.1.13
     # "cart": {
     #     "ENGINE": "djongo",
     #     "NAME": "ecomstore",
@@ -165,3 +166,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SITE_NAME = "Modern Musician"
 META_KEYWORDS = "Music, instruments, music accessories, musician supplies"
 META_DESCRIPTION = "Modern Musician is an online supplier of instruments, sheet music, and other accessories for musicians"
+
+SESSION_COOKIE_NAME = "sessionid"
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 7 * 2
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_SECURE = False
