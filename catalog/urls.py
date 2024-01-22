@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.urls import include, path
 
-from . import views
+from catalog import views
 
 urlpatterns = [
     # path("", views.catalog, name="catalog"),
