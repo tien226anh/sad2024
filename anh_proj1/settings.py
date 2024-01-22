@@ -94,11 +94,11 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         "ENGINE": "django.db.backends.mysql",
-        "NAME": config("DB_NAME") or "ecomstore",
-        "USER": config("DB_USER") or "username",
-        "PASSWORD": config("DB_PASSWORD") or "password",
-        "HOST": config("DB_HOST") or "localhost",
-        "PORT": config("DB_PORT", cast=int) or 3306,
+        "NAME": config("DB_NAME", default="ecomstore"),
+        "USER": config("DB_USER", default="username"),
+        "PASSWORD": config("DB_PASSWORD", default="password"),
+        "HOST": config("DB_HOST", default="127.0.0.1"),
+        "PORT": config("DB_PORT", default=3306, cast=int),
     },
     # TODO: not work with django 4.1.13
     # "cart": {
