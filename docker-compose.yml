@@ -1,5 +1,32 @@
 version: '3'
 
 services:
-  db:
-    image:
+  ecom_db_mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: 'ecomstore'
+      MYSQL_USER: 'username'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+  
+  ecom_db_mongo:
+    image: mongo:latest  # Latest tag for the latest stable version
+    environment:
+      MONGO_INITDB_DATABASE: 'ecomstore'
+      MONGO_INITDB_ROOT_USERNAME: 'username'
+      MONGO_INITDB_ROOT_PASSWORD: 'password'
+    ports:
+      - "27017:27017"
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ecom_db_mysql
+      - ecom_db_mongo
